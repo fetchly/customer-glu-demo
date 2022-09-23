@@ -8,23 +8,22 @@ import Label from '../../components/Label';
 import {appColors, shadow} from '../../utils/appColors';
 import Feather from 'react-native-vector-icons/Feather';
 import auth from '@react-native-firebase/auth';
- import {AlertHelper} from '../../utils/AlertHelper'
+import {AlertHelper} from '../../utils/AlertHelper';
 export default function index({navigation}) {
   const [userInfo, setUserInfo] = useState({});
   const onChnage = (name, text) => {
     setUserInfo({...userInfo, [name]: text});
   };
 
-  const onSignUp =async () => {
-    const {email,password}=userInfo
-    const user = await auth().createUserWithEmailAndPassword(email,password)
-    if(user?.user.uid){
-      AlertHelper.show("success", "Signup Success, Welcome to Amusoftech")
-      navigation.navigate("Home")
-    }else{
-      AlertHelper.show("error", "Signup Failed, Please Retry")
-    } 
-
+  const onSignUp = async () => {
+    const {email, password} = userInfo;
+    const user = await auth().createUserWithEmailAndPassword(email, password);
+    if (user?.user.uid) {
+      AlertHelper.show('success', 'Signup Success, Welcome to Amusoftech');
+      navigation.navigate('Home');
+    } else {
+      AlertHelper.show('error', 'Signup Failed, Please Retry');
+    }
   };
   return (
     <Container isScrollable>

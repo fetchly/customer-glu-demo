@@ -9,54 +9,74 @@ import {appColors, shadow} from '../../utils/appColors';
 import auth from '@react-native-firebase/auth';
 import {AlertHelper} from '../../utils/AlertHelper';
 import {CommonActions} from '@react-navigation/native';
-  
+
 import googleLogin from '../../services/googleLogin';
 import writeData from '../../utils/writeData';
 import ReduxWrapper from '../../utils/ReduxWrapper';
 
-function index({getProductsList$,loginUser$, navigation}) {
+function index({getProductsList$, loginUser$, navigation}) {
   const [credentials, setCredentials] = useState({});
-  const [isloading, setisloading] = useState(false)
+  const [isloading, setisloading] = useState(false);
 
-  const onGoogleLogin  =async ()=>{
-   const {user,additionalUserInfo} =await googleLogin()
-  const {email,displayName,uid,photoURL} =user
-   if(additionalUserInfo?.isNewUser){
-    const {providerId,profile} =additionalUserInfo
-     //create new user and login
-    await writeData('users',{email , name: displayName  , uid ,photoURL,providerId,profile} )
-   } 
-   getProductsList$()
-   loginUser$({email , name: displayName  , uid ,photoURL} );
-  }
+  const onGoogleLogin = async () => {
+    const {user, additionalUserInfo} = await googleLogin();
+    const {email, displayName, uid, photoURL} = user;
+    if (additionalUserInfo?.isNewUser) {
+      const {providerId, profile} = additionalUserInfo;
+      //create new user and login
+      await writeData('users', {
+        email,
+        name: displayName,
+        uid,
+        photoURL,
+        providerId,
+        profile,
+      });
+    }
+    getProductsList$();
+    loginUser$({email, name: displayName, uid, photoURL});
+  };
   const onLogin = async () => {
     //auth().signOut()
     const {email, password} = credentials;
 
     try {
-        if(email && password){
-          setisloading(true)
-          const {user,additionalUserInfo} = await auth().signInWithEmailAndPassword(
+      if (email && password) {
+        setisloading(true);
+        const {
+          user,
+          additionalUserInfo,
+        } = await auth().signInWithEmailAndPassword(
           email?.toLowerCase(),
           password?.toLowerCase(),
         );
         console.log(user);
         if (user?.uid) {
-          if(additionalUserInfo?.isNewUser){
-            const {providerId,profile} =additionalUserInfo
-          //create new user and login
-          await writeData('users',{email :user?.email, name: user?.displayName  , uid:user?.uid  ,photoURL : user?.photoURL  ,providerId,profile} )
+          if (additionalUserInfo?.isNewUser) {
+            const {providerId, profile} = additionalUserInfo;
+            //create new user and login
+            await writeData('users', {
+              email: user?.email,
+              name: user?.displayName,
+              uid: user?.uid,
+              photoURL: user?.photoURL,
+              providerId,
+              profile,
+            });
           }
-          loginUser$({email:user?.email, name: user?.displayName ? user?.displayName : "User", uid: user?.uid } );
-          getProductsList$()
+          loginUser$({
+            email: user?.email,
+            name: user?.displayName ? user?.displayName : 'User',
+            uid: user?.uid,
+          });
+          getProductsList$();
           AlertHelper.show('success', 'Welcome to Amusoftech');
           navigation.navigate('Home');
         }
-      }else{
-        setisloading(false)
+      } else {
+        setisloading(false);
         AlertHelper.show('error', 'Email and password is required!!');
       }
-      
     } catch (error) {
       AlertHelper.show('error', 'Something went woring');
     }
@@ -139,7 +159,7 @@ function index({getProductsList$,loginUser$, navigation}) {
             }}
           />
         </Pressable>
-        <CustomButton isLoading={isloading}  onPress={onLogin} label="Sign in" />
+        <CustomButton isLoading={isloading} onPress={onLogin} label="Sign in" />
       </View>
       <View
         style={{
@@ -161,7 +181,7 @@ function index({getProductsList$,loginUser$, navigation}) {
         label="Sign in"
         unFilled
       />
-      <CustomButton    onPress={onLogin} icon="twitter" label="Sign in" unFilled />
+      <CustomButton onPress={onLogin} icon="twitter" label="Sign in" unFilled />
     </Container>
   );
 }

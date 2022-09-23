@@ -5,6 +5,7 @@ import IconDevices from '../Icons/IconDevices';
 import IconGadget from '../Icons/IconGadget';
 import IconGaming from '../Icons/IconGaming';
 import {appColors} from './appColors';
+import {openWallet} from '@customerglu/react-native-customerglu';
 
 export const features = [
   'Always up-to-date React Native scaffolding',
@@ -137,48 +138,54 @@ export const deliveryTypes = [
 ];
 export const paymentMethods = ['dollar-sign', 'credit-card', 'layout'];
 
-export const profileKeys=[
+export const profileKeys = [
   {
-    lebel:"Edit Profile",
-    icon:"edit-3"
+    lebel: 'Wallet',
+    isNew: true,
+    customIcon: 'wallet',
+    action: () => openWallet(true),
   },
   {
-    lebel:"Shipping Address",
-    icon:"map-pin",
-    route:"Address"
+    lebel: 'Edit Profile',
+    icon: 'edit-3',
   },
   {
-    lebel:"Wishlist",
-    icon:"heart",
-    isNew:true,
-    route :"WishList"
+    lebel: 'Shipping Address',
+    icon: 'map-pin',
+    route: 'Address',
   },
   {
-    lebel:"Order History",
-    icon:"clock",
-    route: "Orders"
+    lebel: 'Wishlist',
+    icon: 'heart',
+    isNew: true,
+    route: 'WishList',
   },
   {
-    lebel:"Track Order",
-    icon:"package",
-    route: "Orders"
+    lebel: 'Order History',
+    icon: 'clock',
+    route: 'Orders',
   },
   {
-    lebel:"Cards",
-    icon:"credit-card"
+    lebel: 'Track Order',
+    icon: 'package',
+    route: 'Orders',
   },
   {
-    lebel:"Notifications",
-    icon:"bell"
+    lebel: 'Cards',
+    icon: 'credit-card',
   },
   {
-    lebel:"Sign Out",
-    icon:"log-out",
-    route: "Login"
-  }
-]
+    lebel: 'Notifications',
+    icon: 'bell',
+  },
+  {
+    lebel: 'Sign Out',
+    icon: 'log-out',
+    route: 'Login',
+  },
+];
 
-export const orderList =[
+export const orderList = [
   {
     label: 'AMU - 9249296 - N',
     amount: '$3503',
@@ -186,23 +193,23 @@ export const orderList =[
     color: 'yellow',
   },
   {
-    label:"OD - 424923192 - N",
-    amount:"$3453",
-    status:"Delivered",
-    color:"primary"
+    label: 'OD - 424923192 - N',
+    amount: '$3453',
+    status: 'Delivered',
+    color: 'primary',
   },
   {
-    label:"OD - 424923192 - N",
-    amount:"$3503",
-    status:"Delivered",
-    color:"primary"
+    label: 'OD - 424923192 - N',
+    amount: '$3503',
+    status: 'Delivered',
+    color: 'primary',
   },
   {
-    label:"OD - 424923192 - N",
-    amount:"$4453",
-    status:"Delivered",
-    color:"primary"
-  }, 
+    label: 'OD - 424923192 - N',
+    amount: '$4453',
+    status: 'Delivered',
+    color: 'primary',
+  },
   /* {
     label:"",
     amount:"",
@@ -215,4 +222,4 @@ export const orderList =[
     status:"",
     color:""
   } */
-]
+];

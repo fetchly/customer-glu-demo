@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, FlatList, Pressable} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Container from '../../components/Container';
@@ -6,6 +6,7 @@ import Label from '../../components/Label';
 import ScreenHeader from '../../components/ScreenHeader';
 import {appColors, shadow} from '../../utils/appColors';
 import {orderList} from '../../utils/MockData';
+import {openWallet} from '@customerglu/react-native-customerglu';
 
 export default function index({navigation}) {
   const OrderCard = ({item}) => {
@@ -42,7 +43,6 @@ export default function index({navigation}) {
         </View>
         <View>
           <FlatList
-           
             nestedScrollEnabled
             ItemSeparatorComponent={() => <View style={{padding: scale(2)}} />}
             data={[1, 2, 3, 4]}
@@ -66,7 +66,7 @@ export default function index({navigation}) {
     );
   };
   return (
-    <Container  >
+    <Container>
       <ScreenHeader navigation={navigation} label="Track Order" />
       <View style={{paddingVertical: scale(20)}}>
         <Label
@@ -82,21 +82,22 @@ export default function index({navigation}) {
           color: 'yellow',
         }}
       />
-      <View style={{flex:1, paddingVertical:scale(20)}}>
-      <View style={{paddingVertical: scale(20)}}>
-        <Label
-          text="Sept 23, 2021"
-          style={{opacity: scale(0.5), fontSize: scale(13)}}
-        />
-      </View>
+      <View style={{flex: 1, paddingVertical: scale(20)}}>
+        <View style={{paddingVertical: scale(20)}}>
+          <Label
+            text="Sept 23, 2021"
+            style={{opacity: scale(0.5), fontSize: scale(13)}}
+          />
+        </View>
 
-      <FlatList
-      
-      keyExtractor={(item)=> `${item.label}_${new Date().getTime()}_${item.amount}`}
-        ItemSeparatorComponent={() => <View style={{padding: scale(5)}} />}
-        data={orderList}
-        renderItem={({item, index}) => <OrderCard key={index} item={item} />}
-      />
+        <FlatList
+          keyExtractor={(item) =>
+            `${item.label}_${new Date().getTime()}_${item.amount}`
+          }
+          ItemSeparatorComponent={() => <View style={{padding: scale(5)}} />}
+          data={orderList}
+          renderItem={({item, index}) => <OrderCard key={index} item={item} />}
+        />
       </View>
     </Container>
   );

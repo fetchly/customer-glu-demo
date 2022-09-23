@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useRef, useEffect, useState} from 'react';
 import {StyleSheet, Text, View, FlatList, Image, Pressable} from 'react-native';
 import {} from 'react-native-gesture-handler';
@@ -18,14 +19,41 @@ import TestComp from '../../components/TestComp';
 import NativeAdView from 'react-native-admob-native-ads';
 import {ANDROID_FULL_PAGE_AD_ID} from '../../utils/appConfig';
 import useListners from '../../hooks/useListners';
- 
-function Home({getProducts$,getProductsList$, addToCart$, navigation,products:{products}}) {
+import {register} from '../../services/customerGlu';
+import {
+  BannerWidget,
+  enableEntryPoints,
+  loadCampaginById,
+} from '@customerglu/react-native-customerglu';
+import {SetCurrentClassName} from '@customerglu/react-native-customerglu';
+import {useFocusEffect, useRoute} from '@react-navigation/native';
+
+function Home({
+  getProducts$,
+  getProductsList$,
+  addToCart$,
+  navigation,
+  products: {products},
+}) {
   const nativeAdViewRef = useRef();
-    useEffect(() => { 
+  useEffect(() => {
     //nativeAdViewRef.current?.loadAd();
-    getProductsList$()
-  }, [/* nativeAdViewRef */]);  
-   
+    getProductsList$();
+  }, []);
+
+  useEffect(() => {
+    register();
+    enableEntryPoints(true);
+  }, []);
+
+  // Me
+  // const route = useRoute();
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     SetCurrentClassName(route.name);
+  //   }, [navigation]),
+  // );
+
   const RenderTitle = ({heading, rightLabel}) => {
     return <TitleComp heading={heading} rightLabel={rightLabel} />;
   };
@@ -33,13 +61,16 @@ function Home({getProducts$,getProductsList$, addToCart$, navigation,products:{p
     return <Product navigation={navigation} item={item} />;
   };
   const onPress = () => {
-    console.warn('i am clicked');
+    console.log('called');
+    loadCampaginById('a86cada9-8c5f-4e8d-a8ea-23bc97ff05e6', 'true');
   };
   return (
-    <Container isScrollable style={styles.container}> 
-      <SearchBox onFoucs={() => navigation.navigate('Search')} /> 
+    <Container isScrollable style={styles.container}>
+      <SearchBox onFoucs={() => navigation.navigate('Search')} />
       <View style={{paddingVertical: scale(30)}}>
         <RenderTitle heading="Categories" />
+        <BannerWidget bannerId="01" />
+
         <FlatList
           style={{marginTop: scale(40)}}
           showsHorizontalScrollIndicator={false}
@@ -52,8 +83,7 @@ function Home({getProducts$,getProductsList$, addToCart$, navigation,products:{p
               <View key={index} style={{alignItems: 'center'}}>
                 <TouchableRipple
                   onPress={() => {
-                    getProducts$(label);
-                    navigation.navigate('Category', {item});
+                    onPress();
                   }}
                   rippleColor={appColors.primary}
                   rippleContainerBorderRadius={scale(40)}

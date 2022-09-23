@@ -23,9 +23,9 @@ import Feather from 'react-native-vector-icons/dist/Feather';
 import {appColors} from '../utils/appColors';
 import {scale} from 'react-native-size-matters';
 import Category from '../screens/Category';
+import Wallet from '../screens/Wallet';
 
 export const RoutesList = [
- 
   {
     name: 'Home',
     component: Home,
@@ -205,6 +205,17 @@ export const RoutesList = [
       //tabBarVisible: false,
       //tabBarBadge: 3,
       tabBarLabel: 'WishList',
+    },
+  },
+
+  {
+    name: 'Wallet',
+    component: Wallet,
+    options: {
+      tabBarButton: (props) => null,
+      //tabBarVisible: false,
+      //tabBarBadge: 3,
+      tabBarLabel: 'Wallet',
     },
   },
 ];

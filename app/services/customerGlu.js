@@ -1,4 +1,4 @@
-import { RegisterDevice } from '@customerglu/react-native-customerglu';
+import {RegisterDevice} from '@customerglu/react-native-customerglu';
 
 let userData = {
   userId: '121', // Mandatory:any identifier to uniquely identify a user of your platform
@@ -15,7 +15,6 @@ let userData = {
     firstName: 'JaneDoe',
   },
 };
-
 
 export async function register() {
   console.log('Registering device');
