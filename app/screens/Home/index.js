@@ -20,13 +20,8 @@ import NativeAdView from 'react-native-admob-native-ads';
 import {ANDROID_FULL_PAGE_AD_ID} from '../../utils/appConfig';
 import useListners from '../../hooks/useListners';
 import {register} from '../../services/customerGlu';
-import {
-  BannerWidget,
-  enableEntryPoints,
-  loadCampaginById,
-} from '@customerglu/react-native-customerglu';
-import {SetCurrentClassName} from '@customerglu/react-native-customerglu';
-import {useFocusEffect, useRoute} from '@react-navigation/native';
+import {BannerWidget} from '@customerglu/react-native-customerglu';
+import {loadCampaginById} from '@customerglu/react-native-customerglu';
 
 function Home({
   getProducts$,
@@ -43,16 +38,7 @@ function Home({
 
   useEffect(() => {
     register();
-    enableEntryPoints(true);
   }, []);
-
-  // Me
-  // const route = useRoute();
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     SetCurrentClassName(route.name);
-  //   }, [navigation]),
-  // );
 
   const RenderTitle = ({heading, rightLabel}) => {
     return <TitleComp heading={heading} rightLabel={rightLabel} />;
@@ -61,15 +47,13 @@ function Home({
     return <Product navigation={navigation} item={item} />;
   };
   const onPress = () => {
-    console.log('called');
-    loadCampaginById('a86cada9-8c5f-4e8d-a8ea-23bc97ff05e6', 'true');
+    loadCampaginById('CAMPAIGN_ID/TAG', 'true/false');
   };
   return (
     <Container isScrollable style={styles.container}>
       <SearchBox onFoucs={() => navigation.navigate('Search')} />
       <View style={{paddingVertical: scale(30)}}>
         <RenderTitle heading="Categories" />
-        <BannerWidget bannerId="01" />
 
         <FlatList
           style={{marginTop: scale(40)}}
@@ -83,7 +67,8 @@ function Home({
               <View key={index} style={{alignItems: 'center'}}>
                 <TouchableRipple
                   onPress={() => {
-                    onPress();
+                    getProducts$(label);
+                    navigation.navigate('Category', {item});
                   }}
                   rippleColor={appColors.primary}
                   rippleContainerBorderRadius={scale(40)}
@@ -121,6 +106,7 @@ function Home({
             <ProductCard key={index} item={item} />
           )}
         />
+        {/* <BannerWidget bannerId="01" /> */}
       </View>
     </Container>
   );

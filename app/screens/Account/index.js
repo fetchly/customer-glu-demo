@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, Pressable, FlatList} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Container from '../../components/Container';
@@ -9,20 +9,37 @@ import Label from '../../components/Label';
 import {profileKeys} from '../../utils/MockData';
 import AvatarImage from '../../components/AvatarImage';
 import auth from '@react-native-firebase/auth';
-import {BannerWidget} from '@customerglu/react-native-customerglu';
+import {
+  BannerWidget,
+  dataClear,
+  sendData,
+} from '@customerglu/react-native-customerglu';
 //auth().signOut()
 export default function index({navigation}) {
   const onLogout = () => {
     auth().signOut();
+    dataClear();
   };
+  // Sending Data
+  useEffect(() => {
+    let userData = {
+      eventName: 'viewedProfile',
+      eventProperties: {
+        accountName: 'Amusoftech',
+        accountEmail: 'amusoftech@gmail.com',
+      },
+    };
+    sendData(userData);
+    console.log('complete');
+  });
   const ItemCard = ({item}) => {
     const {lebel, icon, isNew, route, customIcon, action} = item;
     return (
       <Pressable
         onPress={() => {
           route == 'Login' && onLogout();
-          route && navigation.navigate(route);
           action && action();
+          route && navigation.navigate(route);
         }}
         style={styles.itemContainer}>
         <Pressable style={styles.iconContainer}>
@@ -59,18 +76,15 @@ export default function index({navigation}) {
   };
   return (
     <Container>
-      <Text>Text</Text>
       <BannerWidget bannerId="a86cada9-8c5f-4e8d-a8ea-23bc97ff05e6" />
-      <Text>Text under</Text>
 
-      {/* <View
+      <View
         style={{
           paddingVertical: scale(20),
           flexDirection: 'row',
           justifyContent: 'flex-start',
           alignItems: 'center',
         }}>
-
         <AvatarImage size={scale(110)} />
         <View style={{marginLeft: scale(20)}}>
           <Label text="Amusoftech" style={{fontSize: scale(28)}} />
@@ -81,7 +95,7 @@ export default function index({navigation}) {
         data={profileKeys}
         showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => <ItemCard key={index} item={item} />}
-      /> */}
+      />
     </Container>
   );
 }
