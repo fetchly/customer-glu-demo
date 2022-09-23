@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.amusoftech.shop">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -26,6 +27,7 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+      <meta-data android:name="CUSTOMERGLU_WRITE_KEY"  android:value="QKL0SMSGtV9f88ok0kQKWaDzsbXXicxU30TNX2yl" /> 
     </application>
 
 </manifest>
