@@ -47,13 +47,15 @@ function Home({
     return <Product navigation={navigation} item={item} />;
   };
 
-  useEffect(() => {
-    loadCampaignIdBy('b5a3cc34-2952-4b2d-b07c-c738adbb27ee', false);
-  }, []);
+  // useEffect(() => {
+  //   loadCampaignIdBy('b5a3cc34-2952-4b2d-b07c-c738adbb27ee', false);
+  // }, []);
 
   return (
     <Container isScrollable style={styles.container}>
       <SearchBox onFoucs={() => navigation.navigate('Search')} />
+      <BannerWidget bannerId="010101" />
+
       <View style={{paddingVertical: scale(30)}}>
         <RenderTitle heading="Categories" />
 
@@ -108,7 +110,6 @@ function Home({
             <ProductCard key={index} item={item} />
           )}
         />
-        {/* <BannerWidget bannerId="01" /> */}
       </View>
     </Container>
   );

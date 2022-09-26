@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, FlatList, Pressable, RefreshControl} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Container from '../../components/Container';
@@ -11,6 +11,7 @@ import {appColors} from '../../utils/appColors';
 import BottomButtons from '../../components/BottomButtons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ReduxWrapper from '../../utils/ReduxWrapper';
+import {sendData} from '@customerglu/react-native-customerglu';
 
 function index({
   products: {products},
@@ -100,6 +101,21 @@ function index({
       </View>
     );
   };
+
+  useEffect(() => {
+    let userData = {
+      eventName: 'viewedSection',
+      eventProperties: {
+        accountName: 'Amusoftech',
+        accountEmail: 'amusoftech@gmail.com',
+        sectionName: params.item.label,
+      },
+    };
+    console.log('Sending event about viewed section');
+    sendData(userData);
+    console.log('Finished sending event');
+  });
+
   return (
     <>
       <Container>

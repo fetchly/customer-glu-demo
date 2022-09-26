@@ -21,8 +21,8 @@ export default function index({navigation}) {
     dataClear();
   };
 
-  
   // Sending Data
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     let userData = {
       eventName: 'viewedProfile',
@@ -31,9 +31,9 @@ export default function index({navigation}) {
         accountEmail: 'amusoftech@gmail.com',
       },
     };
-    console.log("Sending event about viewed profile")
+    console.log('Sending event about viewed profile');
     await sendData(userData);
-    console.log("Finished sending event")
+    console.log('Finished sending event');
   });
   const ItemCard = ({item}) => {
     const {lebel, icon, isNew, route, customIcon, action} = item;
@@ -94,6 +94,8 @@ export default function index({navigation}) {
           <Label text="amusoftech@gmail.com" style={{fontSize: scale(12)}} />
         </View>
       </View>
+      <BannerWidget bannerId="010101" />
+
       <FlatList
         data={profileKeys}
         showsVerticalScrollIndicator={false}

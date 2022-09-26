@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, ImageBackground, Pressable} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Container from '../../components/Container';
@@ -13,13 +13,49 @@ import BottomButtons from '../../components/BottomButtons';
 import {connect} from 'react-redux';
 import {addToCart} from '../../redux/cartAction';
 import ReduxWrapper from '../../utils/ReduxWrapper';
+import {sendData} from '@customerglu/react-native-customerglu';
 
-function index({wishList:{wishItemNames}, cart:{ cartItems },addToWishList$,addToCart$, navigation,route:{params}}) {
-   
-  const {id,title, name,description, detail, price, size, color, image, isFav,rating} = params.item;
-  //console.warn({cartItems});
+function index({
+  wishList: {wishItemNames},
+  cart: {cartItems},
+  addToWishList$,
+  addToCart$,
+  navigation,
+  route: {params},
+}) {
+  const {
+    id,
+    title,
+    name,
+    description,
+    detail,
+    price,
+    size,
+    color,
+    image,
+    isFav,
+    rating,
+  } = params.item;
+  console.log(title);
+
+  // Sending Data
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    let userData = {
+      eventName: 'viewedProduct',
+      eventProperties: {
+        accountName: 'Amusoftech',
+        accountEmail: 'amusoftech@gmail.com',
+        productName: title,
+      },
+    };
+    console.log('Sending event about viewed project');
+    sendData(userData);
+    console.log('Finished sending event');
+  });
+
   const onAddToCart = () => {
-    addToCart$({...params.item, quantity:1});
+    addToCart$({...params.item, quantity: 1});
   };
   const _renderBottom = () => {
     return (
@@ -40,7 +76,7 @@ function index({wishList:{wishItemNames}, cart:{ cartItems },addToWishList$,addT
           <ImageBackground
             style={{height: scale(400), width: '100%'}}
             resizeMode="cover"
-            source={{uri:image} }>
+            source={{uri: image}}>
             <View
               style={{
                 marginTop: scale(40),
@@ -58,7 +94,7 @@ function index({wishList:{wishItemNames}, cart:{ cartItems },addToWishList$,addT
               </Pressable>
 
               <Pressable
-                onPress={()=>addToWishList$(params.item)}
+                onPress={() => addToWishList$(params.item)}
                 style={{
                   borderRadius: scale(25),
                   backgroundColor: appColors.white,
@@ -67,7 +103,15 @@ function index({wishList:{wishItemNames}, cart:{ cartItems },addToWishList$,addT
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <Feather name="star" size={scale(20)} color={wishItemNames?.includes(name )? appColors.primary : appColors.black} />
+                <Feather
+                  name="star"
+                  size={scale(20)}
+                  color={
+                    wishItemNames?.includes(name)
+                      ? appColors.primary
+                      : appColors.black
+                  }
+                />
               </Pressable>
             </View>
           </ImageBackground>
@@ -133,7 +177,7 @@ const mapDispatchToProps = {
   addToCart$: addToCart,
 }; 
 export default connect(mapStateToProps, mapDispatchToProps)(index); */
-export default  ReduxWrapper(index)
+export default ReduxWrapper(index);
 
 const styles = StyleSheet.create({
   sizeContainer: {
