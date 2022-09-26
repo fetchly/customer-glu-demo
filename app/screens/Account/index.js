@@ -20,8 +20,10 @@ export default function index({navigation}) {
     auth().signOut();
     dataClear();
   };
+
+  
   // Sending Data
-  useEffect(() => {
+  useEffect(async () => {
     let userData = {
       eventName: 'viewedProfile',
       eventProperties: {
@@ -29,8 +31,9 @@ export default function index({navigation}) {
         accountEmail: 'amusoftech@gmail.com',
       },
     };
-    sendData(userData);
-    console.log('complete');
+    console.log("Sending event about viewed profile")
+    await sendData(userData);
+    console.log("Finished sending event")
   });
   const ItemCard = ({item}) => {
     const {lebel, icon, isNew, route, customIcon, action} = item;

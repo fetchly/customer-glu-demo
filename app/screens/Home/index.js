@@ -21,7 +21,7 @@ import {ANDROID_FULL_PAGE_AD_ID} from '../../utils/appConfig';
 import useListners from '../../hooks/useListners';
 import {register} from '../../services/customerGlu';
 import {BannerWidget} from '@customerglu/react-native-customerglu';
-import {loadCampaginById} from '@customerglu/react-native-customerglu';
+import {loadCampaignIdBy} from '@customerglu/react-native-customerglu';
 
 function Home({
   getProducts$,
@@ -46,9 +46,11 @@ function Home({
   const ProductCard = ({item}) => {
     return <Product navigation={navigation} item={item} />;
   };
-  const onPress = () => {
-    loadCampaginById('CAMPAIGN_ID/TAG', 'true/false');
-  };
+
+  useEffect(() => {
+    loadCampaignIdBy('b5a3cc34-2952-4b2d-b07c-c738adbb27ee', false);
+  }, []);
+
   return (
     <Container isScrollable style={styles.container}>
       <SearchBox onFoucs={() => navigation.navigate('Search')} />

@@ -21,6 +21,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'; 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'; 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'; 
+import { enableEntryPoints } from '@customerglu/react-native-customerglu';
 
 MaterialIcons.loadFont()
 Ionicons.loadFont()
@@ -29,7 +30,15 @@ Feather.loadFont()
 MaterialCommunityIcons.loadFont()
 const App: () => React$Node = () => {
   const {persistor, store} = storePre;
- 
+
+
+  useEffect(async () => {
+
+    console.log('Enabling entry points')
+    await enableEntryPoints(true);
+    console.log("Enabled")
+
+  }, [])
 
   return (
     <Provider store={store}>
