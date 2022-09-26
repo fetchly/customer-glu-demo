@@ -6,9 +6,21 @@ import Label from '../../components/Label';
 import ScreenHeader from '../../components/ScreenHeader';
 import {appColors, shadow} from '../../utils/appColors';
 import {orderList} from '../../utils/MockData';
-import {openWallet} from '@customerglu/react-native-customerglu';
+import {
+  openWallet,
+  SetCurrentClassName,
+} from '@customerglu/react-native-customerglu';
+import {useFocusEffect, useRoute} from '@react-navigation/native';
 
 export default function index({navigation}) {
+  // for Pop ups
+  const route = useRoute();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      SetCurrentClassName(route.name);
+    }, []),
+  );
   const OrderCard = ({item}) => {
     const {label, amount, status, color} = item;
     return (

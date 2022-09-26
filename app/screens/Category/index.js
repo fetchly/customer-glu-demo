@@ -11,7 +11,11 @@ import {appColors} from '../../utils/appColors';
 import BottomButtons from '../../components/BottomButtons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ReduxWrapper from '../../utils/ReduxWrapper';
-import {sendData} from '@customerglu/react-native-customerglu';
+import {
+  sendData,
+  SetCurrentClassName,
+} from '@customerglu/react-native-customerglu';
+import {useFocusEffect, useRoute} from '@react-navigation/native';
 
 function index({
   products: {products},
@@ -20,6 +24,16 @@ function index({
   route: {params},
 }) {
   const [refreshing, setRefreshing] = useState(false);
+
+  // for Pop ups
+  const route = useRoute();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      SetCurrentClassName(route.name);
+    }, []),
+  );
+
   const onRefresh = () => {
     setRefreshing(true);
     //Fetch the products from the server

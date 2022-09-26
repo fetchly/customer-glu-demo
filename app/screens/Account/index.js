@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, Pressable, FlatList} from 'react-native';
 import {scale} from 'react-native-size-matters';
@@ -13,13 +14,24 @@ import {
   BannerWidget,
   dataClear,
   sendData,
+  SetCurrentClassName,
 } from '@customerglu/react-native-customerglu';
+import {useFocusEffect, useRoute} from '@react-navigation/native';
 //auth().signOut()
 export default function index({navigation}) {
   const onLogout = () => {
     auth().signOut();
     dataClear();
   };
+
+  // for Pop ups
+  const route = useRoute();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      SetCurrentClassName(route.name);
+    }, []),
+  );
 
   // Sending Data
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -35,6 +47,7 @@ export default function index({navigation}) {
     await sendData(userData);
     console.log('Finished sending event');
   });
+
   const ItemCard = ({item}) => {
     const {lebel, icon, isNew, route, customIcon, action} = item;
     return (

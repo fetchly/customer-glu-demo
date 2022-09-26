@@ -13,7 +13,11 @@ import BottomButtons from '../../components/BottomButtons';
 import {connect} from 'react-redux';
 import {addToCart} from '../../redux/cartAction';
 import ReduxWrapper from '../../utils/ReduxWrapper';
-import {sendData} from '@customerglu/react-native-customerglu';
+import {
+  sendData,
+  SetCurrentClassName,
+} from '@customerglu/react-native-customerglu';
+import {useFocusEffect, useRoute} from '@react-navigation/native';
 
 function index({
   wishList: {wishItemNames},
@@ -53,6 +57,15 @@ function index({
     sendData(userData);
     console.log('Finished sending event');
   });
+
+  // for Pop ups
+  const route = useRoute();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      SetCurrentClassName(route.name);
+    }, []),
+  );
 
   const onAddToCart = () => {
     addToCart$({...params.item, quantity: 1});

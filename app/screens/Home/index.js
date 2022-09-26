@@ -23,6 +23,9 @@ import {register} from '../../services/customerGlu';
 import {BannerWidget} from '@customerglu/react-native-customerglu';
 import {loadCampaignIdBy} from '@customerglu/react-native-customerglu';
 
+import {SetCurrentClassName} from '@customerglu/react-native-customerglu';
+import {useFocusEffect, useRoute} from '@react-navigation/native';
+
 function Home({
   getProducts$,
   getProductsList$,
@@ -51,6 +54,13 @@ function Home({
   //   loadCampaignIdBy('b5a3cc34-2952-4b2d-b07c-c738adbb27ee', false);
   // }, []);
 
+  const route = useRoute();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      SetCurrentClassName(route.name);
+    }, []),
+  );
   return (
     <Container isScrollable style={styles.container}>
       <SearchBox onFoucs={() => navigation.navigate('Search')} />
