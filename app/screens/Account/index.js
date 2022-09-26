@@ -1,6 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, {useEffect} from 'react';
-import {View, Text, StyleSheet, Pressable, FlatList} from 'react-native';
+import React, {useCallback, useEffect} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  FlatList,
+  Linking,
+} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Container from '../../components/Container';
 import Feather from 'react-native-vector-icons/Feather';
@@ -17,8 +24,11 @@ import {
   SetCurrentClassName,
 } from '@customerglu/react-native-customerglu';
 import {useFocusEffect, useRoute} from '@react-navigation/native';
+import {useState} from 'react/cjs/react.production.min';
+
 //auth().signOut()
 export default function index({navigation}) {
+  const [deepLink, setDeepLink] = useState('');
   const onLogout = () => {
     auth().signOut();
     dataClear();
@@ -46,7 +56,21 @@ export default function index({navigation}) {
     console.log('Sending event about viewed profile');
     await sendData(userData);
     console.log('Finished sending event');
-  });
+  }, []);
+
+  // Handling deepLink
+  const handleDeepLink = useCallback(async () => {
+    // Checking if the link is supported for links with custom URL scheme.
+    const supported = await Linking.canOpenURL(deepLink);
+
+    if (supported) {
+      // Opening the link with some app, if the URL scheme is "http" the web link should be opened
+      // by some browser in the mobile
+      await Linking.openURL(deepLink);
+    } else {
+      console.log(`Don't know how to open this URL: ${deepLink}`);
+    }
+  }, [deepLink]);
 
   const ItemCard = ({item}) => {
     const {lebel, icon, isNew, route, customIcon, action} = item;

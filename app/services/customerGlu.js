@@ -1,4 +1,6 @@
 import {RegisterDevice} from '@customerglu/react-native-customerglu';
+import {useCallback} from 'react';
+import {Alert, Linking} from 'react-native';
 
 let userData = {
   userId: '121', // Mandatory:any identifier to uniquely identify a user of your platform
