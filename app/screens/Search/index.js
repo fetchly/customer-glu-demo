@@ -8,7 +8,6 @@ import TitleComp from '../../components/TitleComp';
 import { recentSearches } from '../../utils/MockData';
 
 export default function index({navigation}) {
-  console.log({navigation});
   return (
     <Container>
       <SearchBox  rightIcon={"x"} autoFocus onRightIconPress={()=>{ 

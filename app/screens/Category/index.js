@@ -41,7 +41,6 @@ function index({
       setRefreshing(false);
     }, 2000);
 
-    console.log({refreshing});
   };
   const _renderHeader = () => {
     return (

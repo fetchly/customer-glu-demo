@@ -6,7 +6,6 @@ export function* workerGetProducts(action) {
   if (action) {
       const category =action.payload
       const URL=`${PRODUCTS_BY_CATEGORY}/${category}`
-      console.log({URL});
       const result = yield RequestMake(URL)      
       yield put({ type:SET_PRODUCTS, payload: result })
   }
@@ -21,9 +20,7 @@ export function* workerGetProductsList(action) {
   if (action) {
       const category =action.payload
       const URL=`${PRODUCTS_LIST}`
-     // console.log({URL});
       const result = yield RequestMake(URL)      
-      console.log({result});
       yield put({ type:SET_PRODUCTS_LIST, payload: result })
   }
 }

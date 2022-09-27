@@ -18,7 +18,6 @@ const {type, payload} =action
               if(item?.name !=  payload)
               return item
         })
-        console.log({itemsLeft});
         return {
             ...state,
             cartItems : [...itemsLeft]

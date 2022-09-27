@@ -19,7 +19,6 @@ import ReduxWrapper from '../../utils/ReduxWrapper';
 
 function index(props) { 
   const {auth: {user}, navigation} = props
-  console.log({user});
 
   const onPaymentDone = (info) => {
     const {error} = info;
