@@ -32,14 +32,15 @@ MaterialCommunityIcons.loadFont()
 const App: () => React$Node = () => {
   const {persistor, store} = storePre;
 
-
-  useEffect(async () => {
-
-    console.log('Enabling entry points')
+  async function enableEntryPointsAsync() {
+    console.log('Enabling entry points');
     await enableEntryPoints(true);
-    console.log("Enabled")
+    console.log('Enabled');
+  }
 
-  }, [])
+  useEffect(() => {
+    enableEntryPointsAsync;
+  }, []);
 
   return (
     <Provider store={store}>
