@@ -22,6 +22,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'; 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'; 
 import { enableEntryPoints } from '@customerglu/react-native-customerglu';
+import notification from './app/services/notification';
 
 MaterialIcons.loadFont()
 Ionicons.loadFont()
