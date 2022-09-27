@@ -16,7 +16,6 @@ import {connect} from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import ReduxWrapper from '../../utils/ReduxWrapper';
 import TestComp from '../../components/TestComp';
-import NativeAdView from 'react-native-admob-native-ads';
 import {ANDROID_FULL_PAGE_AD_ID} from '../../utils/appConfig';
 import useListners from '../../hooks/useListners';
 import {register} from '../../services/customerGlu';
