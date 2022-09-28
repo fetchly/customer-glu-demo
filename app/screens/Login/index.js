@@ -161,27 +161,6 @@ function index({getProductsList$, loginUser$, navigation}) {
         </Pressable>
         <CustomButton isLoading={isloading} onPress={onLogin} label="Sign in" />
       </View>
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingVertical: scale(20),
-        }}>
-        <Label
-          text="-OR-"
-          style={{
-            fontSize: scale(18),
-            //fontWeight: '500',
-          }}
-        />
-      </View>
-      <CustomButton
-        onPress={onGoogleLogin}
-        icon="google"
-        label="Sign in"
-        unFilled
-      />
-      <CustomButton onPress={onLogin} icon="twitter" label="Sign in" unFilled />
     </Container>
   );
 }
