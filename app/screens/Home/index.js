@@ -38,9 +38,9 @@ function Home({
     getProductsList$();
   }, []);
 
-  useEffect(() => {
-    register();
-  }, []);
+  // useEffect(() => {
+  //   register();
+  // }, []);
 
   const RenderTitle = ({heading, rightLabel}) => {
     return <TitleComp heading={heading} rightLabel={rightLabel} />;
@@ -71,7 +71,6 @@ function Home({
           data={categoriesList}
           ItemSeparatorComponent={() => <View style={{padding: scale(10)}} />}
           keyExtractor={(item, index) => index.toString()}
-
           renderItem={({item}) => {
             const {label, Icon} = item;
             return (
@@ -114,10 +113,7 @@ function Home({
           horizontal
           data={products}
           keyExtractor={(item, index) => index.toString()}
-
-          renderItem={({item}) => (
-            <ProductCard  item={item} />
-          )}
+          renderItem={({item}) => <ProductCard item={item} />}
         />
       </View>
     </Container>

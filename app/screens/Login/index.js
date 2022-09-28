@@ -13,68 +13,66 @@ import {CommonActions} from '@react-navigation/native';
 import googleLogin from '../../services/googleLogin';
 import writeData from '../../utils/writeData';
 import ReduxWrapper from '../../utils/ReduxWrapper';
+import {register} from '../../services/customerGlu';
 
 function index({getProductsList$, loginUser$, navigation}) {
-  const [credentials, setCredentials] = useState({});
+  const [credentials, setCredentials] = useState({
+    userId: '', // Mandatory:any identifier to uniquely identify a user of your platform
+    firebaseToken: 'FCM_TOKEN_OF_DEVICE', // for enabling Firebase Notifications
+    apnsDeviceToken: 'APN_TOKEN_OF_DEVICE', // for enabling APN Notifications only for IOS
+    customAttributes: {
+      // any custom key-value pairs, which may be used for targeting can be sent as customAttributes
+      // segments can be created by applying filters on these customAttributes
+      // campaigns can be launched on specific segments
+      orderCount: 5,
+      city: 'Mumbai',
+    },
+    profile: {
+      firstName: 'JaneDoe',
+    },
+  });
   const [isloading, setisloading] = useState(false);
 
   const onGoogleLogin = async () => {
     const {user, additionalUserInfo} = await googleLogin();
-    const {email, displayName, uid, photoURL} = user;
+    const {email, displayName, userId, photoURL} = user;
     if (additionalUserInfo?.isNewUser) {
       const {providerId, profile} = additionalUserInfo;
       //create new user and login
       await writeData('users', {
         email,
         name: displayName,
-        uid,
+        userId,
         photoURL,
         providerId,
         profile,
       });
     }
     getProductsList$();
-    loginUser$({email, name: displayName, uid, photoURL});
+    loginUser$({email, name: displayName, userId, photoURL});
   };
   const onLogin = async () => {
     //auth().signOut()
-    const {email, password} = credentials;
+    const {userId} = credentials;
 
     try {
-      if (email && password) {
+      if (userId) {
         setisloading(true);
-        const {
-          user,
-          additionalUserInfo,
-        } = await auth().signInWithEmailAndPassword(
-          email?.toLowerCase(),
-          password?.toLowerCase(),
-        );
-        if (user?.uid) {
-          if (additionalUserInfo?.isNewUser) {
-            const {providerId, profile} = additionalUserInfo;
-            //create new user and login
-            await writeData('users', {
-              email: user?.email,
-              name: user?.displayName,
-              uid: user?.uid,
-              photoURL: user?.photoURL,
-              providerId,
-              profile,
-            });
-          }
-          loginUser$({
-            email: user?.email,
-            name: user?.displayName ? user?.displayName : 'User',
-            uid: user?.uid,
-          });
+        const success = await register(credentials);
+        console.log('status', success);
+        if (success) {
+          // loginUser$({
+          //   email: user?.email,
+          //   name: user?.displayName ? user?.displayName : 'User',
+          //   userId: user?.userId,
+          // });
           getProductsList$();
           AlertHelper.show('success', 'Welcome to Amusoftech');
           navigation.navigate('Home');
         }
       } else {
         setisloading(false);
-        AlertHelper.show('error', 'Email and password is required!!');
+        AlertHelper.show('error', 'User ID is required!!');
       }
     } catch (error) {
       AlertHelper.show('error', 'Something went woring');
@@ -105,16 +103,16 @@ function index({getProductsList$, loginUser$, navigation}) {
             text="Welcome,"
             style={{fontSize: scale(30), fontWeight: '700'}}
           />
-          <Pressable onPress={() => navigation.navigate('SignUp')}>
+          {/* <Pressable onPress={() => navigation.navigate('SignUp')}>
             <Label
-              text="Sign Up"
+              text="Register User"
               style={{
                 fontSize: scale(14),
                 fontWeight: '500',
                 color: appColors.primary,
               }}
             />
-          </Pressable>
+          </Pressable> */}
         </View>
         <View style={{paddingVertical: scale(15)}}>
           <Label
@@ -128,36 +126,18 @@ function index({getProductsList$, loginUser$, navigation}) {
         </View>
         <View style={{paddingVertical: scale(10)}}>
           <CustomInput
-            onChangeText={(text) => onChangeText('email', text)}
-            keyboardType="email-address"
-            label="Email"
-            placeholder="john@doe.com"
+            onChangeText={(text) => onChangeText('userId', text)}
+            label="User Id"
+            placeholder="Input here"
           />
         </View>
-        <View style={{paddingVertical: scale(10)}}>
-          <CustomInput
-            onChangeText={(text) => onChangeText('password', text)}
-            secureTextEntry
-            label="Password"
-            placeholder="Password"
-            // value="*******"
-          />
-        </View>
-        <Pressable
+        {/* <Pressable
           onPress={() => navigation.navigate('Verification')}
           style={{
             flexDirection: 'row',
             justifyContent: 'flex-end',
             paddingVertical: scale(10),
-          }}>
-          <Label
-            text="Forgot password"
-            style={{
-              fontSize: scale(14),
-              // fontWeight: '500',
-            }}
-          />
-        </Pressable>
+          }}></Pressable> */}
         <CustomButton isLoading={isloading} onPress={onLogin} label="Sign in" />
       </View>
     </Container>
