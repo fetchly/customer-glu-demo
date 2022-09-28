@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -24,7 +24,6 @@ import {
   SetCurrentClassName,
 } from '@customerglu/react-native-customerglu';
 import {useFocusEffect, useRoute} from '@react-navigation/native';
-import {useState} from 'react/cjs/react.production.min';
 
 //auth().signOut()
 export default function index({navigation}) {
@@ -40,7 +39,7 @@ export default function index({navigation}) {
   useFocusEffect(
     React.useCallback(() => {
       SetCurrentClassName(route.name);
-    }, []),
+    }, [navigation]),
   );
 
   // Sending Data
