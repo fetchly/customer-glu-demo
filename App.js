@@ -39,7 +39,7 @@ const App: () => React$Node = () => {
   }
 
   useEffect(() => {
-    enableEntryPointsAsync;
+    enableEntryPointsAsync();
   }, []);
 
   return (

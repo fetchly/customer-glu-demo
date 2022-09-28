@@ -44,7 +44,8 @@ export default function index({navigation}) {
 
   // Sending Data
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
+
+  async function sendData$() {
     let userData = {
       eventName: 'viewedProfile',
       eventProperties: {
@@ -55,6 +56,9 @@ export default function index({navigation}) {
     console.log('Sending event about viewed profile');
     await sendData(userData);
     console.log('Finished sending event');
+  }
+  useEffect(() => {
+    sendData$();
   }, []);
 
   const ItemCard = ({item}) => {
@@ -121,6 +125,7 @@ export default function index({navigation}) {
       <FlatList
         data={profileKeys}
         showsVerticalScrollIndicator={false}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={({item, index}) => <ItemCard key={index} item={item} />}
       />
     </Container>
