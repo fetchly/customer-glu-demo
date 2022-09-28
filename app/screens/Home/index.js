@@ -16,7 +16,6 @@ import {connect} from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import ReduxWrapper from '../../utils/ReduxWrapper';
 import TestComp from '../../components/TestComp';
-import NativeAdView from 'react-native-admob-native-ads';
 import {ANDROID_FULL_PAGE_AD_ID} from '../../utils/appConfig';
 import useListners from '../../hooks/useListners';
 import {register} from '../../services/customerGlu';
@@ -50,10 +49,6 @@ function Home({
     return <Product navigation={navigation} item={item} />;
   };
 
-  // useEffect(() => {
-  //   loadCampaignIdBy('b5a3cc34-2952-4b2d-b07c-c738adbb27ee', false);
-  // }, []);
-
   const route = useRoute();
 
   useFocusEffect(
@@ -75,10 +70,12 @@ function Home({
           horizontal
           data={categoriesList}
           ItemSeparatorComponent={() => <View style={{padding: scale(10)}} />}
-          renderItem={({item, index}) => {
+          keyExtractor={(item, index) => index.toString()}
+
+          renderItem={({item}) => {
             const {label, Icon} = item;
             return (
-              <View key={index} style={{alignItems: 'center'}}>
+              <View style={{alignItems: 'center'}}>
                 <TouchableRipple
                   onPress={() => {
                     getProducts$(label);
@@ -116,8 +113,10 @@ function Home({
           ItemSeparatorComponent={() => <View style={{padding: scale(10)}} />}
           horizontal
           data={products}
-          renderItem={({item, index}) => (
-            <ProductCard key={index} item={item} />
+          keyExtractor={(item, index) => index.toString()}
+
+          renderItem={({item}) => (
+            <ProductCard  item={item} />
           )}
         />
       </View>

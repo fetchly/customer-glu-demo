@@ -40,7 +40,6 @@ function index({
     isFav,
     rating,
   } = params.item;
-  console.log(title);
 
   // Sending Data
   // eslint-disable-next-line react-hooks/exhaustive-deps

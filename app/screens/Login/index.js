@@ -50,7 +50,6 @@ function index({getProductsList$, loginUser$, navigation}) {
           email?.toLowerCase(),
           password?.toLowerCase(),
         );
-        console.log(user);
         if (user?.uid) {
           if (additionalUserInfo?.isNewUser) {
             const {providerId, profile} = additionalUserInfo;

@@ -1,4 +1,4 @@
-package com.amusoftech.shop;
+package fetch.ly.customergludemo;
 
 import com.facebook.react.ReactActivity;
 
