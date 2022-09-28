@@ -52,7 +52,7 @@ function index({
         productName: title,
       },
     };
-    console.log('Sending event about viewed project');
+    console.log('Sending event about viewed product');
     sendData(userData);
     console.log('Finished sending event');
   });
