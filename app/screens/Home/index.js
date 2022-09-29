@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect} from 'react';
-import {StyleSheet, View, FlatList} from 'react-native';
+import {StyleSheet, View, FlatList, Platform} from 'react-native';
 import {} from 'react-native-gesture-handler';
 import {categoriesList} from '../../utils/MockData';
 import {appColors, shadow} from '../../utils/appColors';
@@ -72,7 +72,13 @@ function Home({
     <Container isScrollable>
       <SearchBox onFoucs={() => navigation.navigate('Search')} />
 
-      <View style={{marginTop: 20}}>
+      <View
+        style={[
+          {marginTop: 30, zIndex: 10, position: 'relative'},
+          Platform.OS == 'ios' && {
+            height: 125,
+          },
+        ]}>
         <BannerWidget bannerId="010101" />
       </View>
 

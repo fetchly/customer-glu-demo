@@ -48,7 +48,7 @@ const App: () => React$Node = () => {
   }
 
   async function handleRedirects(payload) {
-    let url = payload.deepLink;
+    let url = payload.deepLink || payload.data?.deepLink;
     let canOpenURL = await Linking.canOpenURL(url);
     if (canOpenURL) {
       return Linking.openURL(url);
@@ -71,9 +71,17 @@ const App: () => React$Node = () => {
       handleRedirects,
     );
 
+    const eventfheight = RncustomergluManagerEmitter.addListener(
+      'CGBANNER_FINAL_HEIGHT',
+      (reminder) => {
+        console.log('CGBANNER_FINAL_HEIGHT....', reminder);
+      },
+    );
+
     return () => {
       eventanalytics.remove();
       eventdeeplink.remove();
+      eventfheight.remove();
     };
   }, []);
 

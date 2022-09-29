@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, StyleSheet, Pressable, FlatList} from 'react-native';
+import {View, StyleSheet, Pressable, FlatList, Platform} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Container from '../../components/Container';
 import Feather from 'react-native-vector-icons/Feather';
@@ -15,7 +15,7 @@ import {
 import {useFocusEffect, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {sendEvent} from '../../services/customerGlu';
-import { loginUser } from '../../redux/authAction';
+import {loginUser} from '../../redux/authAction';
 
 export default function index({navigation}) {
   const dispatch = useDispatch();
@@ -92,7 +92,16 @@ export default function index({navigation}) {
           <Label text="luke@testing.com" style={{fontSize: scale(12)}} />
         </View>
       </View>
-      <BannerWidget bannerId="a86cada9-8c5f-4e8d-a8ea-23bc97ff05e6" />
+
+      <View
+        style={[
+          {marginTop: 30, zIndex: 10, position: 'relative'},
+          Platform.OS == 'ios' && {
+            height: 125,
+          },
+        ]}>
+        <BannerWidget bannerId="a86cada9-8c5f-4e8d-a8ea-23bc97ff05e6" />
+      </View>
 
       <FlatList
         data={profileKeys}
