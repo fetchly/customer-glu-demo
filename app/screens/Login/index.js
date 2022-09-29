@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Container from '../../components/Container';
@@ -9,10 +9,20 @@ import {appColors, shadow} from '../../utils/appColors';
 import {AlertHelper} from '../../utils/AlertHelper';
 import ReduxWrapper from '../../utils/ReduxWrapper';
 import {register} from '../../services/customerGlu';
+import {useDispatch} from 'react-redux';
+import {loginUser} from '../../redux/authAction';
 
-function index({getProductsList$, loginUser$, navigation}) {
+function index({navigation, auth}) {
+  const dispatch = useDispatch();
   const [userId, setUserId] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (auth.user.userId) {
+      navigation.navigate('Home');
+    }
+  }, [auth]);
+
 
   const onLogin = async () => {
     if (!userId) {
@@ -21,9 +31,10 @@ function index({getProductsList$, loginUser$, navigation}) {
 
     setLoading(true);
     try {
-      const success = await register({userId});
+      let user = {userId};
+      const success = await register(user);
       if (success) {
-        getProductsList$();
+        dispatch(loginUser(user));
         AlertHelper.show('success', 'Welcome to Customer Glu Demo');
         navigation.navigate('Home');
       } else {

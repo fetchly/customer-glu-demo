@@ -13,11 +13,9 @@ import BottomButtons from '../../components/BottomButtons';
 import {connect} from 'react-redux';
 import {addToCart} from '../../redux/cartAction';
 import ReduxWrapper from '../../utils/ReduxWrapper';
-import {
-  sendData,
-  SetCurrentClassName,
-} from '@customerglu/react-native-customerglu';
+import {SetCurrentClassName} from '@customerglu/react-native-customerglu';
 import {useFocusEffect, useRoute} from '@react-navigation/native';
+import {sendEvent} from '../../services/customerGlu';
 
 function index({
   wishList: {wishItemNames},
@@ -41,21 +39,9 @@ function index({
     rating,
   } = params.item;
 
-  // Sending Data
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    let userData = {
-      eventName: 'viewedProduct',
-      eventProperties: {
-        accountName: 'Amusoftech',
-        accountEmail: 'amusoftech@gmail.com',
-        productName: title,
-      },
-    };
-    console.log('Sending event about viewed product');
-    sendData(userData);
-    console.log('Finished sending event');
-  });
+    sendEvent('viewedProduct');
+  }, []);
 
   // for Pop ups
   const route = useRoute();

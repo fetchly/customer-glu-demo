@@ -1,40 +1,37 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import React, {useCallback, useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  FlatList,
-  Linking,
-} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, StyleSheet, Pressable, FlatList} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Container from '../../components/Container';
 import Feather from 'react-native-vector-icons/Feather';
-import Entypo from 'react-native-vector-icons/Entypo';
 import {appColors} from '../../utils/appColors';
 import Label from '../../components/Label';
 import {profileKeys} from '../../utils/MockData';
 import AvatarImage from '../../components/AvatarImage';
-import auth from '@react-native-firebase/auth';
 import {
   BannerWidget,
   dataClear,
-  sendData,
   SetCurrentClassName,
 } from '@customerglu/react-native-customerglu';
 import {useFocusEffect, useRoute} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {sendEvent} from '../../services/customerGlu';
+import { loginUser } from '../../redux/authAction';
 
-//auth().signOut()
 export default function index({navigation}) {
-  const [deepLink, setDeepLink] = useState('');
-  const onLogout = () => {
-    auth().signOut();
-    dataClear();
-  };
-
-  // for Pop ups
+  const dispatch = useDispatch();
   const route = useRoute();
+
+  const onLogout = async () => {
+    console.log('Clearing data');
+    await dataClear();
+    console.log('Cleared data');
+
+    dispatch(loginUser({}));
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'Login'}],
+    });
+  };
 
   useFocusEffect(
     React.useCallback(() => {
@@ -42,23 +39,8 @@ export default function index({navigation}) {
     }, [navigation]),
   );
 
-  // Sending Data
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-
-  async function sendData$() {
-    let userData = {
-      eventName: 'viewedProfile',
-      eventProperties: {
-        accountName: 'Amusoftech',
-        accountEmail: 'amusoftech@gmail.com',
-      },
-    };
-    console.log('Sending event about viewed profile');
-    await sendData(userData);
-    console.log('Finished sending event');
-  }
   useEffect(() => {
-    sendData$();
+    sendEvent('viewedProfile');
   }, []);
 
   const ItemCard = ({item}) => {
@@ -97,8 +79,6 @@ export default function index({navigation}) {
   };
   return (
     <Container>
-      <BannerWidget bannerId="a86cada9-8c5f-4e8d-a8ea-23bc97ff05e6" />
-
       <View
         style={{
           paddingVertical: scale(20),
@@ -108,11 +88,11 @@ export default function index({navigation}) {
         }}>
         <AvatarImage size={scale(110)} />
         <View style={{marginLeft: scale(20)}}>
-          <Label text="Amusoftech" style={{fontSize: scale(28)}} />
-          <Label text="amusoftech@gmail.com" style={{fontSize: scale(12)}} />
+          <Label text="Luke" style={{fontSize: scale(28)}} />
+          <Label text="luke@testing.com" style={{fontSize: scale(12)}} />
         </View>
       </View>
-      <BannerWidget bannerId="010101" />
+      <BannerWidget bannerId="a86cada9-8c5f-4e8d-a8ea-23bc97ff05e6" />
 
       <FlatList
         data={profileKeys}

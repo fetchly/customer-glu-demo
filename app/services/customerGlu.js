@@ -1,6 +1,4 @@
-import {RegisterDevice} from '@customerglu/react-native-customerglu';
-import {useCallback} from 'react';
-import {Alert, Linking} from 'react-native';
+import {RegisterDevice, sendData} from '@customerglu/react-native-customerglu';
 
 export async function register(userData) {
   console.log('Registering device');
@@ -12,4 +10,13 @@ export async function register(userData) {
     console.log('Fail');
   }
   return ok;
+}
+
+export async function sendEvent(name) {
+  let userData = {
+    eventName: name,
+  };
+  console.log('Sending event about', name);
+  await sendData(userData);
+  console.log('Finished sending event');
 }

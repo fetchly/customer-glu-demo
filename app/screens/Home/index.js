@@ -1,46 +1,63 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useRef, useEffect, useState} from 'react';
-import {StyleSheet, Text, View, FlatList, Image, Pressable} from 'react-native';
+import React, {useEffect} from 'react';
+import {StyleSheet, View, FlatList} from 'react-native';
 import {} from 'react-native-gesture-handler';
-import {categoriesList, bestSellersList} from '../../utils/MockData';
+import {categoriesList} from '../../utils/MockData';
 import {appColors, shadow} from '../../utils/appColors';
 import TouchableRipple from 'react-native-touch-ripple';
 import Label from '../../components/Label';
 import Container from '../../components/Container';
 import Product from '../../components/ProductCard';
-import {addToCart} from '../../redux/cartAction';
 import {scale} from 'react-native-size-matters';
 import SearchBox from '../../components/SearchBox';
 import TitleComp from '../../components/TitleComp';
-import {connect} from 'react-redux';
-import auth from '@react-native-firebase/auth';
 import ReduxWrapper from '../../utils/ReduxWrapper';
-import TestComp from '../../components/TestComp';
-import {ANDROID_FULL_PAGE_AD_ID} from '../../utils/appConfig';
-import useListners from '../../hooks/useListners';
-import {register} from '../../services/customerGlu';
-import {BannerWidget} from '@customerglu/react-native-customerglu';
-import {loadCampaignIdBy} from '@customerglu/react-native-customerglu';
+import {
+  BannerWidget,
+  RegisterDevice,
+  SetCurrentClassName,
+} from '@customerglu/react-native-customerglu';
 
-import {SetCurrentClassName} from '@customerglu/react-native-customerglu';
 import {useFocusEffect, useRoute} from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 function Home({
   getProducts$,
   getProductsList$,
-  addToCart$,
   navigation,
+  auth,
   products: {products},
 }) {
-  const nativeAdViewRef = useRef();
-  useEffect(() => {
-    //nativeAdViewRef.current?.loadAd();
-    getProductsList$();
-  }, []);
+  async function updateToken() {
+    let token = await AsyncStorage.getItem('token');
+    token = JSON.parse(token);
+    let user = {...auth.user};
 
-  // useEffect(() => {
-  //   register();
-  // }, []);
+    if (!token?.token) {
+      console.log("Notification token doesn't exist");
+      return;
+    }
+
+    if (token.os == 'android') {
+      user.firebaseToken = token.token;
+    } else {
+      user.apnsDeviceToken = token.token;
+    }
+
+    console.log(`Updating user`, user);
+    RegisterDevice(user);
+  }
+
+  useFocusEffect(
+    React.useCallback(() => {
+      SetCurrentClassName(route.name);
+    }, []),
+  );
+
+  useEffect(() => {
+    getProductsList$();
+    updateToken();
+  }, []);
 
   const RenderTitle = ({heading, rightLabel}) => {
     return <TitleComp heading={heading} rightLabel={rightLabel} />;
@@ -51,15 +68,13 @@ function Home({
 
   const route = useRoute();
 
-  useFocusEffect(
-    React.useCallback(() => {
-      SetCurrentClassName(route.name);
-    }, []),
-  );
   return (
-    <Container isScrollable style={styles.container}>
+    <Container isScrollable>
       <SearchBox onFoucs={() => navigation.navigate('Search')} />
-      <BannerWidget bannerId="010101" />
+
+      <View style={{marginTop: 20}}>
+        <BannerWidget bannerId="010101" />
+      </View>
 
       <View style={{paddingVertical: scale(30)}}>
         <RenderTitle heading="Categories" />
@@ -125,6 +140,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    paddingTop: 20,
   },
   header: {
     backgroundColor: appColors.primary,

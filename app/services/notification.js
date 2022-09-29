@@ -1,12 +1,14 @@
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import PushNotification from 'react-native-push-notification';
 import {DisplayBackGroundNotification} from '@customerglu/react-native-customerglu';
+import AsyncStorage from '@react-native-community/async-storage';
 
 // Must be outside of any component LifeCycle (such as `componentDidMount`).
 PushNotification.configure({
   // (optional) Called when Token is generated (iOS and Android)
   onRegister: function (token) {
     console.log('TOKEN:', token);
+    AsyncStorage.setItem('token', JSON.stringify(token));
   },
 
   // (required) Called when a remote is received or opened, or local notification is opened

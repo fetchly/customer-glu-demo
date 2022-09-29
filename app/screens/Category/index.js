@@ -11,11 +11,9 @@ import {appColors} from '../../utils/appColors';
 import BottomButtons from '../../components/BottomButtons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ReduxWrapper from '../../utils/ReduxWrapper';
-import {
-  sendData,
-  SetCurrentClassName,
-} from '@customerglu/react-native-customerglu';
+import {SetCurrentClassName} from '@customerglu/react-native-customerglu';
 import {useFocusEffect, useRoute} from '@react-navigation/native';
+import {sendEvent} from '../../services/customerGlu';
 
 function index({
   products: {products},
@@ -40,7 +38,6 @@ function index({
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);
-
   };
   const _renderHeader = () => {
     return (
@@ -116,18 +113,8 @@ function index({
   };
 
   useEffect(() => {
-    let userData = {
-      eventName: 'viewedSection',
-      eventProperties: {
-        accountName: 'Amusoftech',
-        accountEmail: 'amusoftech@gmail.com',
-        sectionName: params.item.label,
-      },
-    };
-    console.log('Sending event about viewed section');
-    sendData(userData);
-    console.log('Finished sending event');
-  });
+    sendEvent('viewedSection');
+  }, []);
 
   return (
     <>

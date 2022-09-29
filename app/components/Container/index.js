@@ -23,6 +23,8 @@ const styles = StyleSheet.create({
     },
     innerView:{
         flex:1,
-        paddingHorizontal:scale(20)
+        paddingHorizontal:scale(20),
+        paddingVertical:scale(20)
+
     }
 })
