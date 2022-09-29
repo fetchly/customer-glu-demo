@@ -67,7 +67,7 @@ function index({getProductsList$, loginUser$, navigation}) {
           //   userId: user?.userId,
           // });
           getProductsList$();
-          AlertHelper.show('success', 'Welcome to Amusoftech');
+          AlertHelper.show('success', 'Welcome to Customer Glu Demo');
           navigation.navigate('Home');
         }
       } else {
