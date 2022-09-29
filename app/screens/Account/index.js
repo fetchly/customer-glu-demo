@@ -39,7 +39,7 @@ export default function index({navigation}) {
     }, [navigation]),
   );
 
-  useEffect(() => {
+  useFocusEffect(() => {
     sendEvent('viewedProfile');
   }, []);
 

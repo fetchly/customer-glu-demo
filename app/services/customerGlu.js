@@ -15,6 +15,10 @@ export async function register(userData) {
 export async function sendEvent(name) {
   let userData = {
     eventName: name,
+    eventProperties: {
+      accountName: 'Amusoftech',
+      accountEmail: 'amusoftech@gmail.com',
+    },
   };
   console.log('Sending event about', name);
   await sendData(userData);

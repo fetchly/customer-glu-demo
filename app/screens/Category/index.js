@@ -112,7 +112,7 @@ function index({
     );
   };
 
-  useEffect(() => {
+  useFocusEffect(() => {
     sendEvent('viewedSection');
   }, []);
 

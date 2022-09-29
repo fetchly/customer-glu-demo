@@ -39,7 +39,7 @@ function index({
     rating,
   } = params.item;
 
-  useEffect(() => {
+  useFocusEffect(() => {
     sendEvent('viewedProduct');
   }, []);
 
