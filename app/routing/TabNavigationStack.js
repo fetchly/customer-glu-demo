@@ -52,7 +52,7 @@ export default function TabNavigationStack({isAuth}) {
       return () => {
         // Clean up the event listeners
         unsubscribeFirebase();
-        linkingSubscription.remove();
+        linkingSubscription && linkingSubscription.remove();
       };
     },
 
