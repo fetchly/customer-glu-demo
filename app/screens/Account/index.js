@@ -72,15 +72,7 @@ export default function index({navigation}) {
         }}
         style={styles.itemContainer}>
         <Pressable style={styles.iconContainer}>
-          {customIcon ? (
-            <Entypo
-              name={customIcon}
-              size={scale(22)}
-              color={appColors.black}
-            />
-          ) : (
-            <Feather name={icon} size={scale(22)} color={appColors.black} />
-          )}
+          <Feather name={icon} size={scale(22)} color={appColors.black} />
         </Pressable>
         <View style={styles.itemInnerContainer}>
           <Label text={lebel} />
