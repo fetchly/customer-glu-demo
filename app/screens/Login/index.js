@@ -19,7 +19,10 @@ function index({navigation, auth}) {
 
   useEffect(() => {
     if (auth.user.userId) {
-      navigation.navigate('Home');
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Home'}],
+      });
     }
   }, [auth]);
 
