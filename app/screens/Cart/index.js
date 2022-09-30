@@ -15,10 +15,9 @@ import ReduxWrapper from '../../utils/ReduxWrapper';
 import {APP_CURRENY} from '../../utils/appConfig';
 import Empty from '../../components/Empty';
 import {useFocusEffect, useRoute} from '@react-navigation/native';
-import {
-  BannerWidget,
-  SetCurrentClassName,
-} from '@customerglu/react-native-customerglu';
+import {SetCurrentClassName} from '@customerglu/react-native-customerglu';
+import Banner from '../../components/Banner';
+import {sendEvent} from '../../services/customerGlu';
 
 function index({
   wishList: {wishItemNames},
@@ -128,16 +127,19 @@ function index({
 
       <View
         style={[
-          {marginTop: 30, zIndex: 10, position: 'relative'},
+          {marginTop: 30, width: '100%', zIndex: 10, position: 'relative'},
           Platform.OS == 'ios' && {
             height: 125,
           },
         ]}>
-        <BannerWidget bannerId="cart_banner" />
+        <Banner bannerId="cart_banner" />
       </View>
       <View style={{backgroundColor: 'red', bottom: scale(-15)}}>
         <BottomButtons
-          onPress={() => navigation.navigate('Checkout')}
+          onPress={() => {
+            sendEvent('orderPlaced');
+            navigation.navigate('SuccessPage');
+          }}
           buttonLabel={'CHECKOUT'}
           price={getAmount()}
         />

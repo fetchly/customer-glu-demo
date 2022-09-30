@@ -14,6 +14,7 @@ import Search from '../screens/Search';
 import CheckoutDelivery from '../screens/Checkout/CheckoutDelivery';
 import CheckOutSteper from '../screens/Checkout/CheckOutSteper';
 import Summary from '../screens/Summary';
+import SuccessPage from '../screens/SuccessPage';
 import Account from '../screens/Account';
 import WishList from '../screens/WishList';
 
@@ -146,6 +147,18 @@ export const RoutesList = [
       tabBarLabel: 'CheckOutSteper',
     },
   },
+
+  {
+    name: 'SuccessPage',
+    component: SuccessPage,
+    options: {
+      tabBarButton: (props) => null,
+      tabBarVisible: false,
+      //tabBarBadge: 3,
+      tabBarLabel: 'SuccessPage',
+    },
+  },
+  
 
   {
     name: 'Summary',
