@@ -40,7 +40,6 @@ export default function CustomInput({
         secureTextEntry={secureTextEntry}
         keyboardType={keyboardType}
         style={[styles.input, InputStyle]}
-        onBlur={onFocus}
         onFocus={onFocus}
       />
       {IconRight && <IconRight />}

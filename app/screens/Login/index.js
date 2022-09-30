@@ -23,7 +23,6 @@ function index({navigation, auth}) {
     }
   }, [auth]);
 
-
   const onLogin = async () => {
     if (!userId) {
       return;
@@ -36,7 +35,6 @@ function index({navigation, auth}) {
       if (success) {
         dispatch(loginUser(user));
         AlertHelper.show('success', 'Welcome to Customer Glu Demo');
-        navigation.navigate('Home');
       } else {
         AlertHelper.show('error', 'Failed to Register the user');
       }
@@ -83,6 +81,9 @@ function index({navigation, auth}) {
             onChangeText={setUserId}
             label="User Id"
             placeholder="Input here"
+            InputStyle={{
+              width: '100%',
+            }}
           />
         </View>
 
