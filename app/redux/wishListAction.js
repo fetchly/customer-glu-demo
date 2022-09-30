@@ -1,5 +1,6 @@
 export const ADD_TO_WISH_LIST = 'ADD_TO_WISH_LIST'; // ACTION TYPE
 export const REMOVE_TO_WISH_LIST = 'REMOVE_TO_WISH_LIST'; // ACTION TYPE
+export const RESET_WISH_LIST = 'RESET_WISH_LIST'; // ACTION TYPE
 
 export const addToWishList = (itemInfo) => ({
   type: ADD_TO_WISH_LIST,

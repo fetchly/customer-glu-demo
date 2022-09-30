@@ -17,10 +17,10 @@ import {sendEvent} from '../../services/customerGlu';
 import {loginUser} from '../../redux/authAction';
 import ReduxWrapper from '../../utils/ReduxWrapper';
 import Banner from '../../components/Banner';
+import {RESET_WISH_LIST} from '../../redux/wishListAction';
+import {RESET_CART} from '../../redux/cartAction';
 
-  function Account({navigation, auth}) {
-
-  console.log(auth)
+function Account({navigation, auth}) {
   const dispatch = useDispatch();
   const route = useRoute();
 
@@ -28,6 +28,9 @@ import Banner from '../../components/Banner';
     console.log('Clearing data');
     await dataClear();
     console.log('Cleared data');
+
+    dispatch({type: RESET_WISH_LIST});
+    dispatch({type: RESET_CART});
 
     dispatch(loginUser({}));
     navigation.reset({
@@ -91,13 +94,11 @@ import Banner from '../../components/Banner';
         }}>
         <AvatarImage size={scale(110)} />
         <View style={{marginLeft: scale(20)}}>
-          <Label text={ auth.user.userId} style={{fontSize: scale(28)}} />
+          <Label text={auth.user.userId} style={{fontSize: scale(28)}} />
         </View>
       </View>
 
-   
-        <Banner bannerId="profile_banner" />
-
+      <Banner bannerId="profile_banner" />
 
       <FlatList
         data={profileKeys}
@@ -110,7 +111,6 @@ import Banner from '../../components/Banner';
 }
 
 export default ReduxWrapper(Account);
-
 
 const styles = StyleSheet.create({
   itemContainer: {
