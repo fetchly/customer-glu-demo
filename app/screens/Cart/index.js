@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image, Pressable} from 'react-native';
+import {View, Text, Image, Pressable, Platform} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Container from '../../components/Container';
 import Label from '../../components/Label';
@@ -15,7 +15,10 @@ import ReduxWrapper from '../../utils/ReduxWrapper';
 import {APP_CURRENY} from '../../utils/appConfig';
 import Empty from '../../components/Empty';
 import {useFocusEffect, useRoute} from '@react-navigation/native';
-import {SetCurrentClassName} from '@customerglu/react-native-customerglu';
+import {
+  BannerWidget,
+  SetCurrentClassName,
+} from '@customerglu/react-native-customerglu';
 
 function index({
   wishList: {wishItemNames},
@@ -122,6 +125,16 @@ function index({
           />
         </View>
       </Container>
+
+      <View
+        style={[
+          {marginTop: 30, zIndex: 10, position: 'relative'},
+          Platform.OS == 'ios' && {
+            height: 125,
+          },
+        ]}>
+        <BannerWidget bannerId="cart_banner" />
+      </View>
       <View style={{backgroundColor: 'red', bottom: scale(-15)}}>
         <BottomButtons
           onPress={() => navigation.navigate('Checkout')}

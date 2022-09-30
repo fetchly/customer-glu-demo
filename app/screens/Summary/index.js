@@ -15,6 +15,7 @@ import Label from '../../components/Label';
 import {AlertHelper} from '../../utils/AlertHelper';
 import paymentHelper from '../../services/paymentHelper';
 import ReduxWrapper from '../../utils/ReduxWrapper';
+import { sendEvent } from '../../services/customerGlu';
 
 function index(props) {
   const {
@@ -24,6 +25,7 @@ function index(props) {
 
   const onPaymentDone = (info) => {
     AlertHelper.show('success', 'Your Order Placed Successfully');
+    sendEvent("orderPlaced")
     navigation.navigate('Home');
   };
   const onPay = async () => {

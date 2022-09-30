@@ -155,7 +155,10 @@ function index({
           <View>
             <TitleComp heading={'Reviews'} />
             <Pressable
-              onPress={() => navigation.navigate('WriteReview', {name})}>
+              onPress={() => {
+                sendEvent('reviewedProduct');
+                navigation.navigate('WriteReview', {name});
+              }}>
               <Label text="Write your review" style={styles.wrtitle} />
             </Pressable>
 
