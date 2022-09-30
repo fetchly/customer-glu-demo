@@ -16,8 +16,11 @@ import {useFocusEffect, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {sendEvent} from '../../services/customerGlu';
 import {loginUser} from '../../redux/authAction';
+import ReduxWrapper from '../../utils/ReduxWrapper';
 
-export default function index({navigation}) {
+  function Account({navigation, auth}) {
+
+  console.log(auth)
   const dispatch = useDispatch();
   const route = useRoute();
 
@@ -88,8 +91,7 @@ export default function index({navigation}) {
         }}>
         <AvatarImage size={scale(110)} />
         <View style={{marginLeft: scale(20)}}>
-          <Label text="Luke" style={{fontSize: scale(28)}} />
-          <Label text="luke@testing.com" style={{fontSize: scale(12)}} />
+          <Label text={ auth.user.userId} style={{fontSize: scale(28)}} />
         </View>
       </View>
 
@@ -112,6 +114,9 @@ export default function index({navigation}) {
     </Container>
   );
 }
+
+export default ReduxWrapper(Account);
+
 
 const styles = StyleSheet.create({
   itemContainer: {
