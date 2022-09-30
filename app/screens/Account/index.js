@@ -8,7 +8,6 @@ import Label from '../../components/Label';
 import {profileKeys} from '../../utils/MockData';
 import AvatarImage from '../../components/AvatarImage';
 import {
-  BannerWidget,
   dataClear,
   SetCurrentClassName,
 } from '@customerglu/react-native-customerglu';
@@ -17,6 +16,7 @@ import {useDispatch} from 'react-redux';
 import {sendEvent} from '../../services/customerGlu';
 import {loginUser} from '../../redux/authAction';
 import ReduxWrapper from '../../utils/ReduxWrapper';
+import Banner from '../../components/Banner';
 
   function Account({navigation, auth}) {
 
@@ -95,15 +95,9 @@ import ReduxWrapper from '../../utils/ReduxWrapper';
         </View>
       </View>
 
-      <View
-        style={[
-          {marginTop: 30, zIndex: 10, position: 'relative'},
-          Platform.OS == 'ios' && {
-            height: 125,
-          },
-        ]}>
-        <BannerWidget bannerId="profile_banner" />
-      </View>
+   
+        <Banner bannerId="profile_banner" />
+
 
       <FlatList
         data={profileKeys}

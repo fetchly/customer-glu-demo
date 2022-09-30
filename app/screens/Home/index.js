@@ -13,7 +13,6 @@ import SearchBox from '../../components/SearchBox';
 import TitleComp from '../../components/TitleComp';
 import ReduxWrapper from '../../utils/ReduxWrapper';
 import {
-  BannerWidget,
   RegisterDevice,
   setApnFcmToken,
   SetCurrentClassName,
@@ -21,6 +20,7 @@ import {
 
 import {useFocusEffect, useRoute} from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
+import Banner from '../../components/Banner';
 
 function Home({
   getProducts$,
@@ -81,7 +81,7 @@ function Home({
             height: 125,
           },
         ]}>
-        <BannerWidget bannerId="homescreen_banner" />
+        <Banner bannerId="homescreen_banner" />
       </View>
 
       <View style={{paddingVertical: scale(30)}}>
