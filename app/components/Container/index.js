@@ -6,7 +6,7 @@ export default function Container({children,isScrollable,bodyStyle}) {
     return (
         <SafeAreaView  style={styles.container}>
             {
-                isScrollable? <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled>
+                isScrollable? <ScrollView  keyboardShouldPersistTaps='handled' showsVerticalScrollIndicator={false} nestedScrollEnabled>
                     <View style={[styles.innerView,bodyStyle]}>
                         {children}
                     </View>
