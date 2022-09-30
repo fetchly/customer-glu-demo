@@ -15,6 +15,7 @@ import ReduxWrapper from '../../utils/ReduxWrapper';
 import {
   BannerWidget,
   RegisterDevice,
+  setApnFcmToken,
   SetCurrentClassName,
 } from '@customerglu/react-native-customerglu';
 
@@ -42,6 +43,7 @@ function Home({
       user.firebaseToken = token.token;
     } else {
       user.apnsDeviceToken = token.token;
+      await setApnFcmToken(user.apnsDeviceToken,"");
     }
 
     console.log(`Updating user`, user);
