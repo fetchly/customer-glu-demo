@@ -20,7 +20,7 @@ export default function CheckOutSteper({navigation}) {
      //Summary
   };
   return (
-    <Container>
+    <Container isScrollable >
       <ScreenHeader label="Checkout" navigation={navigation} />
 
       <Stepper

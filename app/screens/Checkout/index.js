@@ -39,6 +39,7 @@ export default function index({navigation}) {
             showsVerticalScrollIndicator={false}
             data={bestSellersList}
             ItemSeparatorComponent={() => <View style={{padding: scale(10)}} />}
+            keyExtractor={( item, index) =>  index.toString()}
             renderItem={({item, index}) => (
               <CheckOutItem
                 noBg
@@ -52,7 +53,7 @@ export default function index({navigation}) {
         <View
           style={{
             borderColor: appColors.lightGray,
-            /*  bottom:scale(130),  */ borderBottomWidth: scale(2),
+            borderBottomWidth: scale(2),
             borderTopWidth: scale(2),
           }}>
           <View

@@ -15,19 +15,16 @@ import Label from '../../components/Label';
 import {AlertHelper} from '../../utils/AlertHelper';
 import paymentHelper from '../../services/paymentHelper';
 import ReduxWrapper from '../../utils/ReduxWrapper';
- 
 
-function index(props) { 
-  const {auth: {user}, navigation} = props
+function index(props) {
+  const {
+    auth: {user},
+    navigation,
+  } = props;
 
   const onPaymentDone = (info) => {
-    const {error} = info;
-    if (!error) {
-      AlertHelper.show('success', 'Your Order Placed Successfully');
-      navigation.navigate('Home');
-    } else {
-      AlertHelper.show('error', 'Oops !! Something went wrong !');
-    }
+    AlertHelper.show('success', 'Your Order Placed Successfully');
+    navigation.navigate('Home');
   };
   const onPay = async () => {
     const {email, name} = user;
@@ -114,7 +111,7 @@ function index(props) {
           label="back"
           unFilled
         />
-        <CustomButton onPress={onPay} label="Pay" />
+        <CustomButton onPress={onPaymentDone} label="Pay" />
       </View>
     </>
   );

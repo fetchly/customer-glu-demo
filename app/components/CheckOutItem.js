@@ -20,7 +20,7 @@ export default function CheckOutItem({ renderBagge, hideSteper,noBg, image, name
            borderRadius:  scale(noBg ? 5 : 0),
           //backgroundColor:appColors.darkGray
         }}
-        source={{uri:image} }
+        source={typeof image == "string" ? {uri:image} : image }
       />
 
       <View
