@@ -102,7 +102,7 @@ import ReduxWrapper from '../../utils/ReduxWrapper';
             height: 125,
           },
         ]}>
-        <BannerWidget bannerId="a86cada9-8c5f-4e8d-a8ea-23bc97ff05e6" />
+        <BannerWidget bannerId="profile_banner" />
       </View>
 
       <FlatList

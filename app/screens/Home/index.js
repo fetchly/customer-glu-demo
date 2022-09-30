@@ -79,7 +79,7 @@ function Home({
             height: 125,
           },
         ]}>
-        <BannerWidget bannerId="010101" />
+        <BannerWidget bannerId="homescreen_banner" />
       </View>
 
       <View style={{paddingVertical: scale(30)}}>
