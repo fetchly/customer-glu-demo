@@ -21,6 +21,7 @@ import {
 import {useFocusEffect, useRoute} from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Banner from '../../components/Banner';
+import Banner_Container from '../../components/Banner_Container';
 
 function Home({
   getProducts$,
@@ -71,7 +72,7 @@ function Home({
   const route = useRoute();
 
   return (
-    <Container isScrollable>
+    <Banner_Container isScrollable>
       <SearchBox onFoucs={() => navigation.navigate('Search')} />
 
       <View
@@ -81,14 +82,15 @@ function Home({
             height: 125,
           },
         ]}>
-        <Banner bannerId="homescreen_banner" />
+        <Banner bannerId="homescreen_banner" 
+        style={{ width: '100%', height: Platform.OS === 'ios' ? 150 : null }} />
       </View>
 
-      <View style={{paddingVertical: scale(30)}}>
+      <View style={{paddingVertical: scale(30),marginLeft:scale(10)}}>
         <RenderTitle heading="Categories" />
 
         <FlatList
-          style={{marginTop: scale(40)}}
+          style={{marginTop: scale(40),marginLeft:scale(10),marginRight:scale(10)}}
           showsHorizontalScrollIndicator={false}
           horizontal
           data={categoriesList}
@@ -126,12 +128,13 @@ function Home({
         />
       </View>
       <View>
-        <View style={{paddingVertical: scale(25)}}>
+        <View style={{paddingVertical: scale(25),marginLeft:scale(10)}}>
           <RenderTitle heading="Best Selling" rightLabel="See All" />
         </View>
 
         <FlatList
           showsHorizontalScrollIndicator={false}
+          style={{marginLeft:scale(10),marginRight:scale(10)}}
           ItemSeparatorComponent={() => <View style={{padding: scale(10)}} />}
           horizontal
           data={products}
@@ -139,7 +142,7 @@ function Home({
           renderItem={({item}) => <ProductCard item={item} />}
         />
       </View>
-    </Container>
+    </Banner_Container>
   );
 }
 

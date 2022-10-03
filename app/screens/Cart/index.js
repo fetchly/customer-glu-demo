@@ -132,7 +132,8 @@ function index({
             height: 125,
           },
         ]}>
-        <Banner bannerId="cart_banner" />
+        <Banner bannerId="cart_banner" 
+          style={{ width: '100%', height: Platform.OS === 'ios' ? 150 : null }}/>
       </View>
       <View style={{backgroundColor: 'red', bottom: scale(-15)}}>
         <BottomButtons

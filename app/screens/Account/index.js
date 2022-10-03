@@ -19,6 +19,8 @@ import ReduxWrapper from '../../utils/ReduxWrapper';
 import Banner from '../../components/Banner';
 import {RESET_WISH_LIST} from '../../redux/wishListAction';
 import {RESET_CART} from '../../redux/cartAction';
+import Banner_Container from '../../components/Banner_Container';
+
 
 function Account({navigation, auth}) {
   const dispatch = useDispatch();
@@ -84,13 +86,13 @@ function Account({navigation, auth}) {
     );
   };
   return (
-    <Container>
+    <Banner_Container>
       <View
         style={{
           paddingVertical: scale(20),
           flexDirection: 'row',
           justifyContent: 'flex-start',
-          alignItems: 'center',
+          alignItems: 'center',marginLeft:10,marginRight:10
         }}>
         <AvatarImage size={scale(110)} />
         <View style={{marginLeft: scale(20)}}>
@@ -98,15 +100,20 @@ function Account({navigation, auth}) {
         </View>
       </View>
 
-      <Banner bannerId="profile_banner" />
+       <View>
+        <Banner bannerId="profile_banner" 
+          style={{ width: '100%', height: Platform.OS === 'ios' ? 150 : null }}/>
+      </View>
 
+      
       <FlatList
         data={profileKeys}
+        style={{marginLeft:10,marginRight:10}}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item, index}) => <ItemCard key={index} item={item} />}
       />
-    </Container>
+    </Banner_Container>
   );
 }
 
