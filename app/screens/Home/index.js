@@ -16,6 +16,7 @@ import {
   RegisterDevice,
   setApnFcmToken,
   SetCurrentClassName,
+  closeWebView,
 } from '@customerglu/react-native-customerglu';
 
 import {useFocusEffect, useRoute} from '@react-navigation/native';
@@ -47,6 +48,7 @@ function Home({
       await setApnFcmToken(user.apnsDeviceToken,"");
     }
 
+    closeWebView(true)
     console.log(`Updating user`, user);
     RegisterDevice(user);
   }
