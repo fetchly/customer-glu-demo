@@ -7,6 +7,10 @@ use_frameworks! :linkage => :static
 target 'CustomerGluDemo' do
   config = use_native_modules!
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  pod 'RNCPushNotificationIOS', :path => '../node_modules/@react-native-community/push-notification-ios'
+  pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
+  pod 'Firebase/Messaging'
+
   use_react_native!(:path => config["reactNativePath"])
 
   target 'CustomerGluDemoTests' do

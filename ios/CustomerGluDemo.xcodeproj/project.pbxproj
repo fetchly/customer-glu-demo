@@ -59,6 +59,7 @@
 		586D8638B90C41E07FC50BF8 /* Pods-CustomerGluDemo-CustomerGluDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomerGluDemo-CustomerGluDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-CustomerGluDemo-CustomerGluDemoTests/Pods-CustomerGluDemo-CustomerGluDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5A65CFC9C0F35794AAFE5C74 /* Pods_CustomerGluDemo_tvOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomerGluDemo_tvOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B8283C4CA4FD2BAE770E903 /* Pods_CustomerGluDemo_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomerGluDemo_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		67BB11B128EC786600E1626B /* RNCPushNotificationIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RNCPushNotificationIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6835A536F5723BE782A079FF /* Pods-CustomerGluDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomerGluDemo.debug.xcconfig"; path = "Target Support Files/Pods-CustomerGluDemo/Pods-CustomerGluDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		73F5549D59B484F0652BEEF0 /* Pods-CustomerGluDemo-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomerGluDemo-tvOS.release.xcconfig"; path = "Target Support Files/Pods-CustomerGluDemo-tvOS/Pods-CustomerGluDemo-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		755D82912E5AC4CD81ADA43E /* Pods_CustomerGluDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomerGluDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,9 +156,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		1DB1B1C0A1924CF6A57C0B4C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				67BB11B128EC786600E1626B /* RNCPushNotificationIOS.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				755D82912E5AC4CD81ADA43E /* Pods_CustomerGluDemo.framework */,
@@ -185,6 +194,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				16FA5AD817C8033E77EAEA9E /* Pods */,
+				1DB1B1C0A1924CF6A57C0B4C /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -806,6 +816,7 @@
 				DEVELOPMENT_TEAM = XZR7N982GP;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CustomerGluDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -834,6 +845,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XZR7N982GP;
 				INFOPLIST_FILE = CustomerGluDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
