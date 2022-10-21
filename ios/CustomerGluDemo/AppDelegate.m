@@ -34,7 +34,8 @@ static void InitializeFlipper(UIApplication *application) {
 {
   [FIRApp configure];
    
-  
+  [[CustomerGlu getInstance] configureSafeAreaWithTopHeight:44 bottomHeight:44 topSafeAreaColor:[UIColor blackColor] bottomSafeAreaColor:[UIColor blackColor]];
+//  [[CustomerGlu getInstance] configureLoaderColourWithColor:<#(NSArray<UIColor *> * _Nonnull)#>];
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif

@@ -17,6 +17,7 @@ import {
   setApnFcmToken,
   SetCurrentClassName,
   closeWebView,
+  configureSafeArea,
 } from '@customerglu/react-native-customerglu';
 
 import {useFocusEffect, useRoute} from '@react-navigation/native';
@@ -48,6 +49,11 @@ function Home({
       await setApnFcmToken(user.apnsDeviceToken,"");
     }
 
+  //   let obj12 = {
+  //     topHeight: 500, bottomHeight: 100,
+  //     topSafeAreaColor: "#00FF00", bottomSafeAreaColor: "#FF0000"
+  // }
+  //   configureSafeArea(obj12);
     closeWebView(true)
     console.log(`Updating user`, user);
     RegisterDevice(user);
